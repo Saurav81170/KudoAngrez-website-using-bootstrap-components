@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grammar</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+    />
+    <style>
+      .active-topic {
+        background-color: #0066cc !important;
+        color: white !important;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav
+      class="navbar navbar-expand-lg bg-body-danger"
+      style="
+        background-color: #cee5e5;
+        display: flex;"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">
+          <img src="logo.png" alt="Logo" height="40px" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" href="index.html">KudoAngrez</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="about.html">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="game.html">Game-A-Thon</a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
+          <div class="btn lh-lg">
+            <a href="#"><i class="fa-regular fa-user"></i></a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div
+      class="d-flex flex-column p-3"
+      style="
+        width: 280px;
+        background-color: #c2d5df;
+        position: fixed;
+        height: 100%;
+      
+      "
+    >
+      <h2 style="margin-left: 10px;">Content</h2><hr>
+      <a href="dashboard.html" style="text-decoration: none;"><h5 style="margin-left: 10px;">Home</h5></a>
+      <ul class="nav nav-pills flex-column" id="topicList"></ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="" style="margin-left: 300px; padding-top: 10px">
+      <div id="videoContainer" style="text-align: center;">
+        <iframe
+          id="topicVideo"
+          width="900"
+          height="500"
+          style="border-radius: 5px"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div style="text-align: center">
+        <button id="prevBtn" class="btn btn-primary btn-lg">Previous</button>
+        <button id="quizBtn" class="btn btn-secondary btn-lg">Quiz</button>
+        <button id="nextBtn" class="btn btn-success btn-lg">Next</button>
+      </div>
+    </div>
+
+    <script>
+      const topics = [
+        {
+          name: "Noun",
+          video: "https://www.youtube.com/embed/vsky5jW4muc?si=w3yBzK5qDvShTKu0",
+          quiz: "https://1drv.ms/b/s!Ak0sSzNKdnD1xjBL-2Sizk-7CJzp",
+        },
+        {
+          name: "Pronoun",
+          video: "https://www.youtube.com/embed/TOsNcqImhzI?si=5wDBtDPmfkhC0e87",
+          quiz: "https://1drv.ms/b/s!Ak0sSzNKdnD1xjIYcjMba7V5iUyH?e=vsrhTn",
+        },
+        {
+          name: "Verb",
+          video: "https://www.youtube.com/embed/CvZm15LrL1A?si=mk2MU8j_jU8C17WP",
+          quiz: "https://1drv.ms/b/s!Ak0sSzNKdnD1xjNui0oDInNwY3YX?e=W3G7cp",
+        },
+        {
+          name: "Adverb",
+          video: "https://www.youtube.com/embed/dPpzLT48yKM?si=6FPXxtnXcQc6nO7j",
+          quiz: "https://1drv.ms/b/s!Ak0sSzNKdnD1xjSaVAsJHl7AZnkJ?e=Ihse8r",
+        },
+        {
+          name: "Adjective",
+          video: "https://www.youtube.com/embed/tNzSrEkx6bM?si=sBK0rKe8t4MiQnsY",
+          quiz: "https://1drv.ms/b/s!Ak0sSzNKdnD1xjU5aoha4deBBa-O?e=nTpG5L",
+        },
+        {
+          name: "Conjunction",
+          video: "https://www.youtube.com/embed/XzVFbfdymas?si=iGWW7dbm0w6IUB5F",
+          quiz: "https://1drv.ms/b/s!Ak0sSzNKdnD1xjbjZpfi52YxWh12?e=Pc3uGU",
+        },
+        {
+          name: "Preposition",
+          video: "https://www.youtube.com/embed/leDdmUZrdqI?si=DH4qx55JT4txJGlq",
+          quiz: "https://1drv.ms/b/s!Ak0sSzNKdnD1xjfJLhWwXP31fAYc?e=jigS9P",
+        },
+        {
+          name: "Interjection",
+          video: "https://www.youtube.com/embed/7zDPo2OGRrY?si=X67UBM08K6nU5wwu",
+          quiz: "https://1drv.ms/b/s!Ak0sSzNKdnD1xjgyDFcvVuGy5kfE?e=iIwHc7",
+        },
+        {
+          name: "Sentence (Basic)",
+          video: "https://www.youtube.com/embed/G8ao2JdpDMM?si=riyo8txRQdKmiNjn",
+          quiz: "https://1drv.ms/b/s!Ak0sSzNKdnD1xjlBcGzIxbTplwlp?e=NZe3xz",
+        },
+        {
+          name: "Sentence Transformation",
+          video: "https://www.youtube.com/embed/BtT87B3K_9E?si=napcwJjw6FqQ_aiR",
+          quiz: "https://1drv.ms/b/s!Ak0sSzNKdnD1xjqddziTe0qW8MKA?e=3omY8F",
+        },
+        {
+          name: "Tenses",
+          video: "https://www.youtube.com/embed/pXZtRXpGNck?si=zyzVOKjw2ndP2OPZ",
+          quiz: "https://1drv.ms/b/s!Ak0sSzNKdnD1xj0kaBmpaQ631A4y?e=LzaeGB",
+        },
+        {
+          name: "Articles",
+          video: "https://www.youtube.com/embed/1ouwoH74q5I?si=upXnpfMs8qskDKya",
+          quiz: "https://1drv.ms/b/s!Ak0sSzNKdnD1xjuP3O9hiOGposcv?e=wkxFKN",
+        },
+        {
+          name: "Determiners",
+          video: "https://www.youtube.com/embed/GpGycbvrn3o?si=4y65Q6QgZhEyZsn1",
+          quiz: "https://1drv.ms/b/s!Ak0sSzNKdnD1xjwdAI4yHkWRsQUd?e=AvQVGw",
+        },
+      ];
+
+      const topicList = document.getElementById("topicList");
+      const topicVideo = document.getElementById("topicVideo");
+      const quizBtn = document.getElementById("quizBtn");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+
+      let currentTopicIndex = 0;
+
+      function loadTopic(index) {
+        currentTopicIndex = index;
+        const topic = topics[index];
+
+        topicVideo.src = topic.video;
+        quizBtn.onclick = () => window.open(topic.quiz, "_blank");
+
+        // Update active topic in the sidebar
+        document
+          .querySelectorAll("#topicList .nav-link")
+          .forEach((link, idx) => {
+            link.classList.toggle("active-topic", idx === index);
+          });
+      }
+
+      function createSidebar() {
+        topics.forEach((topic, index) => {
+          const li = document.createElement("li");
+          li.innerHTML = `<a href="#" class="nav-link">${topic.name}</a>`;
+          li.querySelector("a").onclick = () => loadTopic(index);
+          topicList.appendChild(li);
+        });
+      }
+
+      prevBtn.onclick = () => {
+        if (currentTopicIndex > 0) loadTopic(currentTopicIndex - 1);
+      };
+
+      nextBtn.onclick = () => {
+        if (currentTopicIndex < topics.length - 1)
+          loadTopic(currentTopicIndex + 1);
+      };
+
+      // Initialize sidebar and load the first topic
+      createSidebar();
+      loadTopic(0);
+    </script>
+  </body>
+</html>
